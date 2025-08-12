@@ -169,10 +169,56 @@
     </div>
     
     <div class="controls">
+      <button class="royal-btn" onclick="showAllCards()">Show All Cards</button>
+
         <button class="royal-btn" onclick="drawRandomCard()">Draw Card</button>
-        <button class="royal-btn" onclick="flipCard()">Flip Card</button>
     </div>
 </div>
+
+
+<div id="allCardsModal" style="
+    display:none; 
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.8); 
+    color: gold; 
+    z-index: 9999; 
+    padding: 30px; 
+    overflow-y: auto;
+">
+    <div style="
+        background: #111; 
+        border: 4px solid gold; 
+        border-radius: 12px; 
+        max-width: 800px; 
+        margin: auto; 
+        padding: 20px;
+    ">
+        <h2 style="text-align:center; margin-bottom:20px;">👑 All Royal Intimacy Cards 👑</h2>
+        <ul id="allCardsList" style="list-style:none; padding:0; font-size:1.1rem; line-height:1.6;"></ul>
+        <div style="text-align:center; margin-top:20px;">
+            <button class="royal-btn" onclick="closeAllCards()">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function showAllCards() {
+    const list = document.getElementById('allCardsList');
+    list.innerHTML = "";
+    cardTexts.forEach((text, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${index + 1}. ${text}`;
+        list.appendChild(li);
+    });
+    document.getElementById('allCardsModal').style.display = 'block';
+}
+
+function closeAllCards() {
+    document.getElementById('allCardsModal').style.display = 'none';
+}
+</script>
 
 <script>
     const cardTexts = [
@@ -238,9 +284,81 @@
     "Partner picks one clothing item you lose forever — $500 penalty",
     "Grind fully naked waist-down for 1 minute — $900 penalty",
     "One-minute quickie — $1000 penalty",
-    "Girl kisses inner thighs for 30 seconds — $500 penalty"
+    "Girl kisses inner thighs for 30 seconds — $500 penalty",
+    "Sit on his face and grind for 20 seconds. - $1000",
+    " Squeeze your own boobs while making eye contact for 5 seconds. Skip for 100.",
+    "Bite your lip and stare into his eyes for 10 seconds. Skip for 100.",
+    " Keep your hand on her inner thigh for 20 seconds. Skip for 150",
+    "Bite her shoulder lightly. Skip for 120 coins.",
+    "Perform oral through clothes for 10 seconds. Skip for 200",
+    "Whisper the naughtiest sentence you can think of in their ear, then kiss their neck. Skip for 100.",
+    "Visit 5 “destinations” your partner chooses. Skip for 700",
+    "Grab his cock over his pants and squeeze hard.",
+    "Take his hand and place it directly on your pussy.",
+    "Spit on his cock and rub it with your hand.",
+    "Rub his cock between your tits for 15 seconds.",
+    "Sit on his lap facing away and grind till you want",
+    "Push his cock against your cheek and hold it there.",
+    "Let him finger you while you moan his name.",
+    "Pull her panties down and bury your face in her pussy.",
+    "Slide your hand in her panties and finger her until she moans.",
+    "Pin her arms above her head and lick her neck.",
+    "Spread her pussy with your fingers and blow on it.",
+    "Lick her clit for 20 seconds without stopping.",
+    "Finger her while sucking on her tits.",
+    "Grab her ass cheeks and spread them wide.",
+    "Kiss her pussy like you’re kissing her mouth.",
+    "Stand facing each other naked and press your bodies together.",
+    "Kiss from the neck all the way down to the pussy/cock.",
+    "Rub genitals together without penetration.",
+    "Lick each other’s nipples for 20 seconds.",
+    "Lie on top of each other naked and kiss.",
+    "One person spits in the other’s mouth.",
+    "Hold eye contact while stroking each other.",
+    "Kiss every part of their body below the waist.",
+    "Touch each other’s asshole with a finger (just outside).",
+    "Hold his cock between your feet and stroke",
+    "Slide your pussy lips over his nose.",
+    "Push two fingers in her and rub her clit with your thumb.",
+    "Slide just the tip in and out 5 times.",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     ];
+
+
+
+
 
     const mainCard = document.getElementById('mainCard');
     const cardTextElement = document.getElementById('cardText');
