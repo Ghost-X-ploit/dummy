@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Royal Intimacy Card Game</title>
+<style>
+    body {
+        font-family: 'Times New Roman', serif;
+        background: #0a0a0a url('https://www.transparenttextures.com/patterns/black-linen.png');
+        color: gold;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        letter-spacing: 2px;
+    }
+    .game-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 800px;
+    }
+    .card-display {
+        position: relative;
+        width: 300px;
+        height: 450px;
+        margin: 20px auto;
+        perspective: 1000px;
+    }
+    /* Royal Card Styling */
+    .card {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: all 0.8s ease;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+    .card.flipped {
+        transform: rotateY(180deg);
+    }
+    .card-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .card-front {
+        background: linear-gradient(135deg, #1a1a1a, #333);
+        border: 8px solid gold;
+        transform: rotateY(0deg);
+    }
+    .card-front::before, .card-front::after {
+        content: '♠';
+        position: absolute;
+        font-size: 3rem;
+        color: gold;
+    }
+    .card-front::before {
+        top: 10px;
+        left: 15px;
+    }
+    .card-front::after {
+        bottom: 10px;
+        right: 15px;
+        transform: rotate(180deg);
+    }
+    .card-back {
+        background: linear-gradient(135deg, #8B0000, #600000);
+        border: 8px solid gold;
+        transform: rotateY(180deg);
+        color: white;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        text-align: center;
+        padding: 30px;
+        overflow-y: auto;
+    }
+    .card-back::before {
+        content: '❤️';
+        position: absolute;
+        font-size: 4rem;
+        opacity: 0.2;
+        z-index: 0;
+    }
+    .card-back p {
+        position: relative;
+        z-index: 1;
+    }
+    .controls {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+    }
+    .royal-btn {
+        background: linear-gradient(to bottom, #8B0000, #600000);
+        color: gold;
+        border: 2px solid gold;
+        padding: 12px 25px;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .royal-btn:hover {
+        background: linear-gradient(to bottom, #A00000, #700000);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    }
+    .royal-btn:active {
+        transform: translateY(1px);
+    }
+    .card-title {
+        font-size: 2rem;
+        color: gold;
+        margin-bottom: 10px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    }
+    @media (max-width: 600px) {
+        .card-display {
+            width: 280px;
+            height: 420px;
+        }
+        h1 {
+            font-size: 2rem;
+        }
+    }
+</style>
+</head>
+<body>
+
+<h1>👑 Royal Card Game 👑</h1>
+
+<div class="game-container">
+    <div class="card-display">
+        <div class="card" id="mainCard">
+            <div class="card-face card-front">
+                <div>
+                    <div class="card-title">Royal Card</div>
+                    <p>Tap to reveal</p>
+                </div>
+            </div>
+            <div class="card-face card-back">
+                <p id="cardText">Select a card to begin</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button class="royal-btn" onclick="drawRandomCard()">Draw Card</button>
+        <button class="royal-btn" onclick="flipCard()">Flip Card</button>
+    </div>
+</div>
+
+<script>
+    const cardTexts = [
+    "Eat me through my clothes, teasing me until I beg — $300 penalty",
+    "Get on all fours, nothing below the waist, and take me for 2 rounds — $600 penalty",
+    "For 60 seconds, your partner can do anything physical they want — $700 penalty",
+    "Sit in my lap while I explore every curve of your body for 60 seconds — $400 penalty",
+    "Deep kiss without stopping for as long as possible — winner takes bragging rights, loser pays $300 penalty",
+    "Make your partner use only their hands to touch or hold any part of your body for 2 rounds — $400 penalty",
+    "Your partner removes one piece of your clothing for the rest of the game — $400 penalty",
+    "Run your tongue slowly across my bottom lip, making me shiver — $200 penalty",
+    "Sit in my lap for one turn, feeling my heat — $300 penalty",
+    "Hug me tight for 60 seconds, swaying, then kiss before letting go — $200 penalty",
+    "Whisper the dirtiest thing in my ear, then kiss my neck — $300 penalty",
+    "Pin me against the wall or chair and kiss me hard for 30 seconds — $300 penalty",
+    "Slow dance with full body contact for 90 seconds — $300 penalty",
+    "Give me a sensual massage for 3 minutes — $500 penalty",
+    "Swap one item of clothing and wear it for 2 turns — $300 penalty",
+    "Give me a quick, playful love mark — $400 penalty",
+    "Sit forehead to forehead, match my breathing for 60 seconds, then kiss me — $200 penalty",
+    "Make out with me for 90 seconds without stopping — $300 penalty",
+    "You have 20 seconds to make me say 'More' — fail and pay $800 penalty",
+    "Let me choose 5 spots on your body to touch or kiss — $900 penalty",
+    "Match my heartbeat with your touches — $500 penalty",
+    "Count down from 10 while you get hotter each second — $800 penalty",
+    "Let me position you however I want for 60 seconds — $800 penalty",
+    "I invent any extreme move for you to do — $700 penalty",
+    "Do your hottest move as fast as you can for 15 seconds — $500 penalty",
+    "I choose two hot moves — you do both or pay $600 penalty",
+    "Start a hot move but stop every 5 seconds — $500 penalty",
+    "Kiss my hottest spot once, slowly — $300 penalty",
+    "Do your hottest move for exactly 10 seconds — $400 penalty",
+    "Pin me down and fuck me however you want for 1 minute — $900 penalty",
+    "Spit on me and spread it with your tongue — $800 penalty",
+    "Spit on it and stroke — $800 penalty",
+    "Moan my name as loud as you can — $300 penalty",
+    "Lick the tip in slow circles for 15 seconds — $500 penalty",
+    "Grind naked against me for 1 minute — $900 penalty",
+    "Spank me 5 times, hard — $400 penalty",
+    "Kiss only my inner thighs for 30 seconds — $500 penalty",
+    "Grind on me with clothes on for 1 minute — $500 penalty",
+    "Give me a handjob while keeping your hands behind your back — $700 penalty",
+    "Lick slowly from my neck to my inner thigh — $600 penalty",
+    "Suck for 20 seconds — $500 penalty",
+    "Make me say 'No' by doing something naughty — $500 penalty",
+    "Lick my hottest spot for 10 seconds — $500 penalty",
+    "For 5 minutes, you can’t speak or resist anything I do — $1000 penalty",
+    "Before moving each turn for 3 turns, give me any touch I choose — $600 penalty",
+    "Pay $100 for every piece of clothing you’re still wearing — or strip — $variable penalty",
+    "Masturbate for 1 minute while watching me — $800 penalty",
+    "I ban you from touching one hot spot for 2 turns — pay $300 to break it — $300 penalty",
+    "Remove one piece of clothing or pay — $400 penalty",
+    "Steal one of my items or give me a minute of hot action — $800 penalty",
+    "Girl moans softly in his ear and waits for his reaction — $300 penalty",
+    "Boy whispers something dirty, girl repeats or pays — $200 penalty",
+    "Girl sits in his lap while he explores over clothes for 60 seconds — $400 penalty",
+    "Girl spanks him 5 times — $300 penalty",
+    "Girl sucks his neck for 20 seconds — $400 penalty",
+    "Girl matches his heartbeat with her touch — $500 penalty",
+    "Boy licks her ear tip in slow circles for 15 seconds — $400 penalty",
+    "Boy spanks her 5 times — $300 penalty",
+    "Boy licks slowly from her neck to thigh — $600 penalty",
+    "Partner picks one clothing item you lose forever — $500 penalty",
+    "Grind fully naked waist-down for 1 minute — $900 penalty",
+    "One-minute quickie — $1000 penalty",
+    "Girl kisses inner thighs for 30 seconds — $500 penalty"
+    
+    ];
+
+    const mainCard = document.getElementById('mainCard');
+    const cardTextElement = document.getElementById('cardText');
+    let currentCardText = "Select a card to begin";
+    let isFlipped = false;
+
+    function drawRandomCard() {
+        if (isFlipped) {
+            flipCard(); // Flip it back first if it's currently flipped
+            setTimeout(() => {
+                updateCard();
+            }, 400);
+        } else {
+            updateCard();
+        }
+    }
+
+    function updateCard() {
+        currentCardText = cardTexts[Math.floor(Math.random() * cardTexts.length)];
+        cardTextElement.textContent = currentCardText;
+        
+        // Add royal decoration based on card content
+        const cardBack = document.querySelector('.card-back');
+        if (currentCardText.includes("King") || currentCardText.includes("Queen")) {
+            cardBack.style.background = 'linear-gradient(135deg, #1a1a1a, #000033)';
+        } else {
+            cardBack.style.background = 'linear-gradient(135deg, #8B0000, #600000)';
+        }
+    }
+
+    function flipCard() {
+        isFlipped = !isFlipped;
+        mainCard.classList.toggle('flipped', isFlipped);
+    }
+
+    // Allow clicking the card to flip it
+    mainCard.addEventListener('click', flipCard);
+</script>
+
+</body>
+</html>
