@@ -132,23 +132,22 @@
 
 <h1>Choose Your Royal Path</h1>
 
-<div class="choices-container">
-    <div class="choice-card" onclick="goToPage('pinkslip.html')">
-        <div class="choice-inner pinkslip">
-            <div class="choice-text">Pink Slip</div>
-        </div>
-    </div>
-    <div class="choice-card" onclick="goToPage('repeat.html')">
-        <div class="choice-inner repeat">
-            <div class="choice-text">Repeat</div>
-        </div>
-    </div>
-    <div class="choice-card" onclick="goToPage('norepeat.html')">
-        <div class="choice-inner norepeat">
-            <div class="choice-text">No Repeat</div>
-        </div>
+<div class="choice-card" onclick="goToPage('./pinkslip.html')">
+    <div class="choice-inner pinkslip">
+        <div class="choice-text">Pink Slip</div>
     </div>
 </div>
+<div class="choice-card" onclick="goToPage('./repeat.html')">
+    <div class="choice-inner repeat">
+        <div class="choice-text">Repeat</div>
+    </div>
+</div>
+<div class="choice-card" onclick="goToPage('./norepeat.html')">
+    <div class="choice-inner norepeat">
+        <div class="choice-text">No Repeat</div>
+    </div>
+</div>
+
 
 <script>
     function goToPage(page) {
@@ -161,4 +160,5 @@
 </script>
 
 </body>
+
 </html>
