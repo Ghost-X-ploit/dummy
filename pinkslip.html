@@ -296,29 +296,230 @@ function drawRandomCard() {
 }
 
 // ================= Card Texts ===================
-const cardTexts = [
-   "Eat me through my clothes, teasing me until I beg — $300 penalty",
-   "Get on all fours, nothing below the waist, and take me for 2 rounds — $600 penalty",
-   "For 60 seconds, your partner can do anything physical they want — $700 penalty",
-   "Sit in my lap while I explore every curve of your body for 60 seconds — $400 penalty",
-   "Deep kiss without stopping for as long as possible — winner takes bragging rights, loser pays $300 penalty",
-   "Slow dance with full body contact for 90 seconds — $300 penalty",
-   "Give me a sensual massage for 3 minutes — $500 penalty",
-   "Moan my name as loud as you can — $300 penalty",
-   "Grind naked against me for 1 minute — $900 penalty",
-   "Spank me 5 times, hard — $400 penalty",
-   "Lick the tip in slow circles for 15 seconds — $500 penalty",
-   "Kiss only my inner thighs for 30 seconds — $500 penalty",
-   "Finger her slowly while telling her exactly what you’re doing in detail.",
-   "Circle her clit exactly 15 times with your tongue — then stop.",
-   "Trap her clit gently between your lips and hum.",
-   "Pretend we’re strangers meeting for the first time — kiss me.",
-   "Do it on the floor — no bed. for 4 mins",
-   "Oral only — until I can’t take it.",
-   "Fuck me like it’s the last time ever.",
-   "Use your tongue only on my nipples for 1 minute"
-];
+   const cardTexts = [
+    "Eat me through my clothes, teasing me until I beg — $300 penalty",
+    "Get on all fours, nothing below the waist, and take me for 2 rounds — $600 penalty",
+    "For 60 seconds, your partner can do anything physical they want — $700 penalty",
+    "Sit in my lap while I explore every curve of your body for 60 seconds — $400 penalty",
+    "Deep kiss without stopping for as long as possible — winner takes bragging rights, loser pays $300 penalty",
+    "Make your partner use only their hands to touch or hold any part of your body for 2 rounds — $400 penalty",
+    "Your partner removes one piece of your clothing for the rest of the game — $400 penalty",
+    "Run your tongue slowly across my bottom lip, making me shiver — $200 penalty",
+    "Sit in my lap for one turn, feeling my heat — $300 penalty",
+    "Hug me tight for 60 seconds, swaying, then kiss before letting go — $200 penalty",
+    "Whisper the dirtiest thing in my ear, then kiss my neck — $300 penalty",
+    "Pin me against the wall or chair and kiss me hard for 30 seconds — $300 penalty",
+    "Slow dance with full body contact for 90 seconds — $300 penalty",
+    "Give me a sensual massage for 3 minutes — $500 penalty",
+    "Swap one item of clothing and wear it for 2 turns — $300 penalty",
+    "Give me a quick, playful love mark — $400 penalty",
+    "Sit forehead to forehead, match my breathing for 60 seconds, then kiss me — $200 penalty",
+    "Make out with me for 90 seconds without stopping — $300 penalty",
+    "You have 20 seconds to make me say 'More' — fail and pay $800 penalty",
+    "Let me choose 5 spots on your body to touch or kiss — $900 penalty",
+    "Match my heartbeat with your touches — $500 penalty",
+    "Count down from 10 while you get hotter each second — $800 penalty",
+    "Let me position you however I want for 60 seconds — $800 penalty",
+    "I invent any extreme move for you to do — $700 penalty",
+    "Do your hottest move as fast as you can for 15 seconds — $500 penalty",
+    "I choose two hot moves — you do both or pay $600 penalty",
+    "Start a hot move but stop every 5 seconds — $500 penalty",
+    "Kiss my hottest spot once, slowly — $300 penalty",
+    "Do your hottest move for exactly 10 seconds — $400 penalty",
+    "Pin me down and fuck me however you want for 1 minute — $900 penalty",
+    "Spit on me and spread it with your tongue — $800 penalty",
+    "Spit on it and stroke — $800 penalty",
+    "Moan my name as loud as you can — $300 penalty",
+    "Lick the tip in slow circles for 15 seconds — $500 penalty",
+    "Grind naked against me for 1 minute — $900 penalty",
+    "Spank me 5 times, hard — $400 penalty",
+    "Kiss only my inner thighs for 30 seconds — $500 penalty",
+    "Grind on me with clothes on for 1 minute — $500 penalty",
+    "Give me a handjob while keeping your hands behind your back — $700 penalty",
+    "Lick slowly from my neck to my inner thigh — $600 penalty",
+    "Suck for 20 seconds — $500 penalty",
+    "Make me say 'No' by doing something naughty — $500 penalty",
+    "Lick my hottest spot for 10 seconds — $500 penalty",
+    "For 5 minutes, you can’t speak or resist anything I do — $1000 penalty",
+    "Before moving each turn for 3 turns, give me any touch I choose — $600 penalty",
+    "Pay $100 for every piece of clothing you’re still wearing — or strip — $variable penalty",
+    "Masturbate for 1 minute while watching me — $800 penalty",
+    "I ban you from touching one hot spot for 2 turns — pay $300 to break it — $300 penalty",
+    "Remove one piece of clothing or pay — $400 penalty",
+    "Steal one of my items or give me a minute of hot action — $800 penalty",
+    "Girl moans softly in his ear and waits for his reaction — $300 penalty",
+    "Boy whispers something dirty, girl repeats or pays — $200 penalty",
+    "Girl sits in his lap while he explores over clothes for 60 seconds — $400 penalty",
+    "Girl spanks him 5 times — $300 penalty",
+    "Girl sucks his neck for 20 seconds — $400 penalty",
+    "Girl matches his heartbeat with her touch — $500 penalty",
+    "Boy licks her ear tip in slow circles for 15 seconds — $400 penalty",
+    "Boy spanks her 5 times — $300 penalty",
+    "Boy licks slowly from her neck to thigh — $600 penalty",
+    "Partner picks one clothing item you lose forever — $500 penalty",
+    "Grind fully naked waist-down for 1 minute — $900 penalty",
+    "One-minute quickie — $1000 penalty",
+    "Girl kisses inner thighs for 30 seconds — $500 penalty",
+    "Sit on his face and grind for 20 seconds. - $1000",
+    " Squeeze your own boobs while making eye contact for 5 seconds. Skip for 100.",
+    "Bite your lip and stare into his eyes for 10 seconds. Skip for 100.",
+    " Keep your hand on her inner thigh for 20 seconds. Skip for 150",
+    "Bite her shoulder lightly. Skip for 120 coins.",
+    "Perform oral through clothes for 10 seconds. Skip for 200",
+    "Whisper the naughtiest sentence you can think of in their ear, then kiss their neck. Skip for 100.",
+    "Visit 5 “destinations” your partner chooses. Skip for 700",
+    "Grab his cock over his pants and squeeze hard.",
+    "Take his hand and place it directly on your pussy.",
+    "Spit on his cock and rub it with your hand.",
+    "Rub his cock between your tits for 15 seconds.",
+    "Sit on his lap facing away and grind till you want",
+    "Push his cock against your cheek and hold it there.",
+    "Let him finger you while you moan his name.",
+    "Pull her panties down and bury your face in her pussy.",
+    "Slide your hand in her panties and finger her until she moans.",
+    "Pin her arms above her head and lick her neck.",
+        "Spit on my lips and let me slurp it.",
+        "Spit in my mouth and lick it up.",
+    "Spread her pussy with your fingers and blow on it.",
+    "Lick her clit for 20 seconds without stopping.",
+    "Finger her while sucking on her tits.",
+    "Grab her ass cheeks and spread them wide.",
+    "Kiss her pussy like you’re kissing her mouth.",
+    "Stand facing each other naked and press your bodies together.",
+    "Kiss from the neck all the way down to the pussy/cock.",
+    "Rub genitals together without penetration.",
+    "Lick each other’s nipples for 20 seconds.",
+    "Lie on top of each other naked and kiss.",
+    "One person spits in the other’s mouth.",
+    "Hold eye contact while stroking each other.",
+    "Kiss every part of their body below the waist.",
+    "Touch each other’s asshole with a finger (just outside).",
+    "Hold his cock between your feet and stroke",
+        "Spit on my boobs and lick it up.",
+    "Slide your pussy lips over his nose.",
+    "Push two fingers in her and rub her clit with your thumb.",
+    "Slide just the tip in and out 5 times.",
+    "Warm your mouth with hot tea or breath and give head",
+    "Wrap your panties around his cock and stroke it like a sleeve",
+    "Announce 5, 4, 3, 2, 1 while lowering your mouth further on his cock each number.",
+"Finger her slowly while telling her exactly what you’re doing in detail.",
+"Circle her clit exactly 15 times with your tongue — then stop.",
+"Trap her clit gently between your lips and hum.",
+"One person blindfolds the other and uses only their mouth anywhere below the waist.",
+"Finger each other, then lick your own fingers.",
+"Drip saliva onto genitals, then lick it all up.",
+        "Use any object nearby as a toy to tease me.",
+        "Let me remove one piece of your clothing with my teeth.",
+        "Act out one roleplay scenario of your choice (nurse/patient, boss/secretary, etc.).",
+        "Confess one secret fantasy you’ve had about us.",
+        "Choose a position you’ve always wanted but never asked for — we try it now.",
+        "You can only thrust slowly for the next 2 minutes — no speeding up.",
+        "We stay connected inside each other — but no movement for 1 minute.",
+        "for 3 mins while kissing Dirty talk only — say exactly what you want, no shyness or holding back .",
+        "Kiss down my stomach, stopping right before my most sensitive spot.",
+        "Use your teeth to tug on my underwear.",
+        "Use your teeth to tug on my clothing",
+        "Grind against me until I moan.",
+        "Kiss me from my toes up to my thighs.",
+        "Pretend we’re strangers meeting for the first time — kiss me.",
+        "Bite my lip and don’t let go until I pull away.",
+        "Whoever moans first loses and gets punished.",
+        "Do it on the floor — no bed. for 4 mins",
+        "Oral only — until I can’t take it.",
+        "Fuck me like it’s the last time ever.",
+        "Use your tongue only on my nipples for 1 minute",
+        "Bite my inner thigh until I moan.",
+        "Lick something off my skin (chocolate, whipped cream, honey).",
+        "Trace every curve of my body with your tongue.",
+        "Use your nails down my back while kissing me.",
+        "Pull out, slap me, and go back in.",
+        "Slap my ass and make me say Thank you.",
+        "Finger me 2 min more after i beg you to stop",
+        "Spit on my chest and lick it up.",
+        "Spit on my inner thighs and lick it up.",
+        "drink spit of partner",
+        "Place your foot between my legs and make me grind.",
+        "Rub your ass against me slowly.",
+        "Rub your wetness on my stomach/chest.",
+        "Rub your vagina on my shoulder.",
+        "Lick sweat off my body.",
+        "Put your finger in my mouth and make me suck it.",
+        "Use my hand to spank yourself.",
+        "Kiss me while fingering yourself.",
+        "Lick around my nipples but not on them.",
+        "Drag your tongue across my waistband.",
+        "Bite and kiss my lower back.",
+        "Cum on my stomach, rub it in.",
+        "Don’t stop even if I say no",
+        "Make me say I’m yours” to continue.",
+        "Say fuck me baby while grinding against each other",
+        "Fuck me from behind while pulling hair.",
+        "Ride me facing away while I spank you.",
+        "Spit in my mouth while fucking.",
+        "Slide your dick between my tits",
+        "Rub your clit against my knee until you’re dripping.",
+        "Rub my cock between your ass cheeks.",
+        "Stroke my cock with your hands covered in spit.",
+        "Put your underwear in my mouth while you grind on me.",
+        "Lie across me sideways and hump me in a twisted angle.",
+        "Push your wetness onto my fingers, then make me lick them one by one.",
+        "Make me crawl to you and lick your feet",
+        "Make me edge you with my tongue for 5 minutes straight.",
+        "Write SLUT or MINE on my chest",
+        "Shove my toes in your mouth and gag yourself.",
+        "Make me lick your pussy like a starving dog in heat.",
+        "vibrator - Place it in me, then make me walk around the room.",
+        "Tie me up, vibrator buzzing, and ignore me for 5 minutes.",
+        "Vibrator on max — I’m not allowed to moan louder than a whisper.",
+        "Strap the vibrator on me and make me dance for you.",
+        "Press the vibrator on the head of your cock until your legs shake",
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    ];
+
+
 </script>
 
 </body>
 </html>
+
