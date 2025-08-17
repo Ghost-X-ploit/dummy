@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Royal Intimacy Card Game</title>
+<style>
+    body {
+        font-family: 'Times New Roman', serif;
+        background: #0a0a0a url('https://www.transparenttextures.com/patterns/black-linen.png');
+        color: gold;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        letter-spacing: 2px;
+    }
+    .game-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+    }
+    .card-display {
+        display: flex;
+        gap: 40px; /* bigger space between cards */
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+    .card-wrapper {
+        position: relative;
+        width: 260px;   /* bigger width */
+        height: 390px;  /* bigger height */
+        perspective: 1000px;
+    }
+    .card {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: all 0.8s ease;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        cursor: pointer;
+    }
+    .card.flipped {
+        transform: rotateY(180deg);
+    }
+    .card-face {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .card-front {
+        background: linear-gradient(135deg, #1a1a1a, #333);
+        border: 8px solid gold;
+        transform: rotateY(0deg);
+    }
+    .card-front::before, .card-front::after {
+        content: '♠';
+        position: absolute;
+        font-size: 2rem;
+        color: gold;
+    }
+    .card-front::before {
+        top: 10px;
+        left: 15px;
+    }
+    .card-front::after {
+        bottom: 10px;
+        right: 15px;
+        transform: rotate(180deg);
+    }
+    .card-back {
+        background: linear-gradient(135deg, #8B0000, #600000);
+        border: 8px solid gold;
+        transform: rotateY(180deg);
+        color: white;
+        font-size: 1rem;
+        line-height: 1.4;
+        text-align: center;
+        padding: 20px;
+        overflow-y: auto;
+    }
+    .card-back::before {
+        content: '❤️';
+        position: absolute;
+        font-size: 3rem;
+        opacity: 0.2;
+        z-index: 0;
+    }
+    .card-back p {
+        position: relative;
+        z-index: 1;
+    }
+
+
+.card.disabled::after {
+    content: "❌ Not Usable";
+    position: absolute;
+    bottom: 10px;   /* move it down so text is still visible */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.7);
+    color: red;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 6px 12px;
+    border: 2px solid red;
+    border-radius: 6px;
+    text-shadow: 1px 1px 3px black;
+    z-index: 5;
+}
+
+    .controls {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .royal-btn {
+        background: linear-gradient(to bottom, #8B0000, #600000);
+        color: gold;
+        border: 2px solid gold;
+        padding: 12px 25px;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    .royal-btn:hover {
+        background: linear-gradient(to bottom, #A00000, #700000);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+    }
+    .royal-btn:active {
+        transform: translateY(1px);
+    }
+    .card-title {
+        font-size: 1.2rem;
+        color: gold;
+        margin-bottom: 8px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+    }
+    @media (max-width: 600px) {
+        .card-wrapper {
+            width: 200px;
+            height: 300px;
+        }
+        h1 {
+            font-size: 2rem;
+        }
+    }
+</style>
+</head>
+<body>
+
+<h1>👑 Royal Card Game 👑</h1>
+
+<div class="game-container">
+    <div class="card-display" id="cardDisplay"></div>
+    
+    <div class="controls">
+      <button class="royal-btn" onclick="showAllCards()">Show All Cards</button>
+      <button class="royal-btn" onclick="drawRandomCard()">Draw 3 Cards</button>
+    </div>
+</div>
+
+<div id="allCardsModal" style="
+    display:none; 
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.8); 
+    color: gold; 
+    z-index: 9999; 
+    padding: 30px; 
+    overflow-y: auto;
+">
+    <div style="
+        background: #111; 
+        border: 4px solid gold; 
+        border-radius: 12px; 
+        max-width: 800px; 
+        margin: auto; 
+        padding: 20px;
+    ">
+        <h2 style="text-align:center; margin-bottom:20px;">👑 All Royal Intimacy Cards 👑</h2>
+        <ul id="allCardsList" style="list-style:none; padding:0; font-size:1.1rem; line-height:1.6;"></ul>
+        <div style="text-align:center; margin-top:20px;">
+            <button class="royal-btn" onclick="closeAllCards()">Close</button>
+        </div>
+    </div>
+</div>
+
+<script>
+function showAllCards() {
+    const list = document.getElementById('allCardsList');
+    list.innerHTML = "";
+    cardTexts.forEach((text, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${index + 1}. ${text}`;
+        list.appendChild(li);
+    });
+    document.getElementById('allCardsModal').style.display = 'block';
+}
+
+function closeAllCards() {
+    document.getElementById('allCardsModal').style.display = 'none';
+}
+
+// ================= Game Logic ===================
+let chosenCards = [];
+let flippedCount = 0;
+
+function drawRandomCard() {
+    const cardDisplay = document.getElementById("cardDisplay");
+    cardDisplay.innerHTML = ""; // reset
+    chosenCards = [];
+    flippedCount = 0;
+
+    // Pick 3 unique random cards
+    let pool = [...cardTexts];
+    for (let i = 0; i < 3; i++) {
+        let idx = Math.floor(Math.random() * pool.length);
+        chosenCards.push(pool.splice(idx, 1)[0]);
+    }
+
+    chosenCards.forEach((text) => {
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("card-wrapper");
+
+        const card = document.createElement("div");
+        card.classList.add("card");
+
+        card.innerHTML = `
+            <div class="card-face card-front">
+                <div>
+                    <div class="card-title">Royal Card</div>
+                    <p>Tap to reveal</p>
+                </div>
+            </div>
+            <div class="card-face card-back">
+                <p>${text}</p>
+            </div>
+        `;
+
+        wrapper.appendChild(card);
+        cardDisplay.appendChild(wrapper);
+
+        let flipped = false;
+
+        card.addEventListener("click", () => {
+            if (flipped || flippedCount >= 2) return;
+
+            flipped = true;
+            card.classList.add("flipped");
+            flippedCount++;
+
+            // if 2 chosen, auto-flip the last one
+            if (flippedCount === 2) {
+                const allCards = document.querySelectorAll(".card");
+                allCards.forEach((c) => {
+                    if (!c.classList.contains("flipped")) {
+                        setTimeout(() => {
+                            c.classList.add("flipped", "disabled");
+                        }, 800);
+                    }
+                });
+            }
+        });
+    });
+}
+
+// ================= Card Texts ===================
+const cardTexts = [
+   "Eat me through my clothes, teasing me until I beg — $300 penalty",
+   "Get on all fours, nothing below the waist, and take me for 2 rounds — $600 penalty",
+   "For 60 seconds, your partner can do anything physical they want — $700 penalty",
+   "Sit in my lap while I explore every curve of your body for 60 seconds — $400 penalty",
+   "Deep kiss without stopping for as long as possible — winner takes bragging rights, loser pays $300 penalty",
+   "Slow dance with full body contact for 90 seconds — $300 penalty",
+   "Give me a sensual massage for 3 minutes — $500 penalty",
+   "Moan my name as loud as you can — $300 penalty",
+   "Grind naked against me for 1 minute — $900 penalty",
+   "Spank me 5 times, hard — $400 penalty",
+   "Lick the tip in slow circles for 15 seconds — $500 penalty",
+   "Kiss only my inner thighs for 30 seconds — $500 penalty",
+   "Finger her slowly while telling her exactly what you’re doing in detail.",
+   "Circle her clit exactly 15 times with your tongue — then stop.",
+   "Trap her clit gently between your lips and hum.",
+   "Pretend we’re strangers meeting for the first time — kiss me.",
+   "Do it on the floor — no bed. for 4 mins",
+   "Oral only — until I can’t take it.",
+   "Fuck me like it’s the last time ever.",
+   "Use your tongue only on my nipples for 1 minute"
+];
+</script>
+
+</body>
+</html>
